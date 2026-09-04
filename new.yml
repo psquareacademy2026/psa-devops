@@ -1,0 +1,48 @@
+name: Beginner CI Pipeline
+
+
+# Trigger the workflow when code is pushed to main branch
+on:
+ push:
+   branches:
+     - main
+
+
+jobs:
+ # ---------------- JOB 1 ----------------
+ build:
+   name: Build Job
+   runs-on: ubuntu-latest
+
+
+   steps:
+     - name: Checkout Repository
+       uses: actions/checkout@v4
+
+
+     - name: Print Build Message
+       run: echo "Building the application..."
+
+
+     - name: Create Sample File
+       run: echo "Hello P Square Academy Students!" > app.txt
+
+
+     - name: Show File Content
+       run: cat app.txt
+
+
+ # ---------------- JOB 2 ----------------
+ test:
+   name: Test Job
+   needs: build          # Depends on Job 1
+   runs-on: ubuntu-latest
+
+
+   steps:
+     - name: Print Test Message
+       run: echo "Running tests after Build Job completed."
+
+
+     - name: Test Successful
+       run: echo "All tests passed successfully!"
